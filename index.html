@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrono-todon - Chronological Mastodon Timeline</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+
+        .status {
+            border-bottom: 1px solid gray;
+            padding: 16px;
+        }
+
+        .status .reblog, .status .response {
+            margin-bottom: 16px;
+        }
+
+        .status .status_content p:last-child {
+            margin-bottom: 0;
+        }
+        .status .info {
+            margin-bottom: 10px;
+        }
+        #topSentinel, #bottomSentinel {
+            height: 100px;
+        }
+
+        #timeline {
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        .video_attachment, .gifv_attachment, .audio_attachment, .unknown_attachment {
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+        }
+        .status a span.invisible {
+            font-size: 0;
+            line-height: 0;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <template id="image_attachment_template">
+        <div class="image_attachment"><img src=""/></div>
+    </template>
+    <template id="video_attachment_template">
+        <div class="video_attachment">Video...</div>
+    </template>
+    <template id="gifv_attachment_template">
+        <div class="gifv_attachment">GIF...</div>
+    </template>
+    <template id="audio_attachment_template">
+        <div class="audio_attachment">Audio...</div>
+    </template>
+    <template id="unknown_attachment_template">
+        <div class="unknown_attachment">Unknown Attachment...</div>
+    </template>
+    <template id="status_template">
+        <div class="status">
+            <div class="reblog text-muted"><a class="text-muted" href="" target="_blank"></a> shared</div>
+            <div class="response text-muted">Response to <a class="text-muted" href="" target="_blank"></a></div>
+            <div class="d-flex info">
+                <div class="avatar" style="width: 32px">
+                    <img width="32" height="32" src="" />
+                </div>
+                <div class="account flex-grow-1">
+                    <div class="account_name"></div>
+                    <div class="account_handle text-muted"></div>
+                </div>
+                <div class="time"></div>
+            </div>
+            <div class="status_content"></div>
+            <div class="status_attachments"></div>
+            <div class="status_actions"></div>
+        </div>
+    </template>
+    <div class="container">
+        <div id="login">
+            <h1>Chrono-todon</h1>
+            <form id="login_form">
+                <div class="mb-3">
+                    <label for="mastadon_instance">Mastadon Instance</label>
+                    <input id="mastadon_instance" name="mastadon_instance" class="form-control" type="text" pattern="[^.]+\.[^@]+" placeholder="yourinstance.example.social"/>
+                </div>
+                <button id="login_button" class="btn btn-primary">Connect</button>
+            </form>
+            This is only a proof of concept for the idea of a chronological Mastodon timeline. It does not support all timeline features. Notably:
+            <ul>
+                <li>It does not support content warnings! <b>Be warned!</b></li>
+                <li>It might show filtered content</li>
+                <li>No support for GIF, video or audio Attachments</li>
+                <li>Acessibility features are probably very lacking</li>
+                <li>No way to view threads</li>
+                <li>No way to respond/favorite/bookmark/share something</li>
+                <li>No error reporting. If something goes wrong the best place is to look into the browser console.</li>
+                <li>The HTML content that is send from your mastodon instance is trusted without any sanitization.</li>
+                <li>The "last read" state is not updated on the server</li>
+                <li>There is no optimization and the page will grow larger and larger, which will result in slowdown if a lot of content is shown.</li>
+                <li>There is no automatic refresh when new content is available. To get new content scroll a little bit up and down again.</li>
+            </ul>
+        </div>
+        <div id="logout_container" class="position-absolute d-none">
+            <button class="btn btn-danger" id="logout_button">Logout</button>
+        </div>
+        <div id="timeline" class="d-none">
+            <div id="topSentinel"></div>
+            <div id="bottomSentinel"></div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
