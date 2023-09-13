@@ -362,12 +362,7 @@ async function logout() {
     data.append('client_id', application.client_id)
     data.append('client_secret', application.client_secret)
     data.append('token', current_login.token.access_token)
-    try {
-        const response = await fetch(url, {body: data, method: 'POST'})
-        const jsonResponse = await response.json()
-    } catch (e) {
-        console.log("Ignoring cors-exception", e)
-    }
+    await fetch(url, {body: data, method: 'POST', mode: 'no-cors'})
     current_login = null;
     instance_url = null
     localStorage.removeItem(localstorage_current_login_key)
