@@ -82,6 +82,9 @@ function createStatusNode(status) {
     for (let media_attachment of status.media_attachments) {
         node.querySelector('.status_attachments').appendChild(createMediaNode(media_attachment))
     }
+    if (status.media_attachments.length == 0 && status.card) {
+        node.querySelector('.status_card').appendChild(createCardNode(status.card))
+    }
     return node
 }
 
@@ -109,6 +112,27 @@ function createMediaNode(media) {
             return audio_attachment_template.content.cloneNode(true)
         default:
             return unknown_attachment_template.content.cloneNode(true)
+    }
+}
+
+
+const status_card_link_template = document.getElementById('status_card_link_template')
+const status_card_link_img =  status_card_link_template.content.querySelector('img')
+const status_card_link_a = status_card_link_template.content.querySelector('a')
+const status_card_link_title = status_card_link_template.content.querySelector('.card-title')
+const status_card_link_description = status_card_link_template.content.querySelector('.card-text')
+const status_card_link_provider = status_card_link_template.content.querySelector('.card-subtitle')
+
+function createCardNode(card) {
+    if (card.type === 'link') {
+        status_card_link_img.src = card.image
+        status_card_link_a.href = card.url
+        status_card_link_title.innerText = card.title
+        status_card_link_description.innerText = card.description
+        status_card_link_provider.innerText = card.provider_name
+        return status_card_link_template.content.cloneNode(true)
+    } else {
+        return document.createTextNode('Card type ' + card.type + ' not supported')
     }
 }
 

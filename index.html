@@ -66,6 +66,22 @@
     <template id="unknown_attachment_template">
         <div class="unknown_attachment">Unknown Attachment...</div>
     </template>
+    <template id="status_card_link_template">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="card-body col-md-8">
+                    <span class="card-subtitle text-body-secondary">Provider Name</span>
+                    <a href="#" target="_blank" class="stretched-link">
+                        <h5 class="card-title mb-2">Card title</h5>
+                    </a>
+                    <p class="card-text">Description</p>
+                </div>
+            </div>
+        </div>
+    </template>
     <template id="status_template">
         <div class="status">
             <div class="reblog text-muted"><a class="text-muted" href="" target="_blank"></a> shared</div>
@@ -81,6 +97,7 @@
                 <div class="time"></div>
             </div>
             <div class="status_content"></div>
+            <div class="status_card"></div>
             <div class="status_attachments d-flex flex-row"></div>
             <div class="status_actions"></div>
         </div>
