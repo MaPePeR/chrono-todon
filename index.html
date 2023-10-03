@@ -80,8 +80,8 @@
             <div class="status_actions"></div>
         </div>
     </template>
-    <div class="container">
-        <div id="login">
+    <div id="login">
+        <div class="container">
             <h1>Chrono-todon</h1>
             <form id="login_form">
                 <div class="mb-3">
@@ -105,10 +105,12 @@
                 <li>There is no automatic refresh when new content is available. To get new content scroll a little bit up and down again.</li>
             </ul>
         </div>
+    </div>
+    <div id="timeline" class="d-none">
         <div id="logout_container" class="position-absolute d-none">
             <button class="btn btn-danger" id="logout_button">Logout</button>
         </div>
-        <div id="timeline" class="d-none">
+        <div class="container">
             <div id="topSentinel"></div>
             <div id="bottomSentinel"></div>
         </div>

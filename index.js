@@ -131,7 +131,7 @@ async function initialLoad() {
             fragment.append(statusNode)
         }
     }
-    timeline.insertBefore(fragment, bottomSentinel)
+    bottomSentinel.parentElement.insertBefore(fragment, bottomSentinel)
 
     document.querySelector('#timeline .status[data-id="' + lastSeen + '"]').scrollIntoView({behavior: 'instant', block: 'center'})
 
@@ -174,7 +174,7 @@ async function loadPrev() {
         fragment.append(statusNode)
     }
     const position = timeline.scrollHeight - timeline.scrollTop
-    timeline.insertBefore(fragment, firstStatus)
+    firstStatus.parentElement.insertBefore(fragment, firstStatus)
     timeline.scrollTop = timeline.scrollHeight - position
     loadingPrev = false
     topSentinel.innerText = ''
@@ -193,7 +193,7 @@ async function loadNew() {
         const statusNode = createStatusNode(status)
         fragment.append(statusNode)
     }
-    timeline.insertBefore(fragment, bottomSentinel)
+    bottomSentinel.parentElement.insertBefore(fragment, bottomSentinel)
     loadingNew = false
     bottomSentinel.innerText = ''
 }
