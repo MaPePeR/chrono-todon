@@ -82,7 +82,7 @@ function createStatusNode(status) {
     for (let media_attachment of status.media_attachments) {
         node.querySelector('.status_attachments').appendChild(createMediaNode(media_attachment))
     }
-    if (status.media_attachments.length == 0 && status.card) {
+    if (status.media_attachments.length == 0 && status.card && status.card.image) {
         node.querySelector('.status_card').appendChild(createCardNode(status.card))
     }
     return node
