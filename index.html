@@ -30,7 +30,7 @@
             height: 100vh;
             overflow-y: scroll;
         }
-        .video_attachment, .gifv_attachment, .audio_attachment, .unknown_attachment {
+        .gifv_attachment, .audio_attachment, .unknown_attachment {
             width: 100px;
             height: 100px;
             border: 1px solid gray;
@@ -53,7 +53,9 @@
         <div class="image_attachment"><img src="" class="rounded"/></div>
     </template>
     <template id="video_attachment_template">
-        <div class="video_attachment">Video...</div>
+        <div class="video_attachment">
+            <video autoplay="false" poster="x" preload="none" controls src="x">Your browser does not support video.</video>
+        </div>
     </template>
     <template id="gifv_attachment_template">
         <div class="gifv_attachment">GIF...</div>
@@ -97,7 +99,7 @@
             <ul>
                 <li>It does not support content warnings! <b>Be warned!</b></li>
                 <li>It might show filtered content</li>
-                <li>No support for GIF, video or audio Attachments</li>
+                <li>No support for GIF or audio Attachments</li>
                 <li>Acessibility features are probably very lacking</li>
                 <li>No way to view threads</li>
                 <li>No way to respond/favorite/bookmark/share something</li>

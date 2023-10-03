@@ -88,6 +88,7 @@ function createStatusNode(status) {
 const image_attachment_template = document.getElementById('image_attachment_template')
 const image_attachment_img = image_attachment_template.content.querySelector('img')
 const video_attachment_template = document.getElementById('video_attachment_template')
+const video_attachment_video = video_attachment_template.content.querySelector('video')
 const gifv_attachment_template = document.getElementById('gifv_attachment_template')
 const audio_attachment_template = document.getElementById('audio_attachment_template')
 const unknown_attachment_template = document.getElementById('unknown_attachment_template')
@@ -101,6 +102,8 @@ function createMediaNode(media) {
             return image_attachment_template.content.cloneNode(true)
             //return gifv_attachment_template.content.cloneNode(true)
         case 'video':
+            video_attachment_video.src = media.url
+            video_attachment_video.poster = media.preview_url
             return video_attachment_template.content.cloneNode(true)
         case 'audio':
             return audio_attachment_template.content.cloneNode(true)
