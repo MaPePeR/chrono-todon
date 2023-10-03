@@ -43,11 +43,14 @@
             height: 0;
             position: absolute;
         }
+        .status > .status_attachments > * {
+            margin: 1ex;
+        }
     </style>
 </head>
 <body>
     <template id="image_attachment_template">
-        <div class="image_attachment"><img src=""/></div>
+        <div class="image_attachment"><img src="" class="rounded"/></div>
     </template>
     <template id="video_attachment_template">
         <div class="video_attachment">Video...</div>
@@ -76,7 +79,7 @@
                 <div class="time"></div>
             </div>
             <div class="status_content"></div>
-            <div class="status_attachments"></div>
+            <div class="status_attachments d-flex flex-row"></div>
             <div class="status_actions"></div>
         </div>
     </template>
