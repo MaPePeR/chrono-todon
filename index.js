@@ -349,7 +349,10 @@ async function testAccessToken(instance, token) {
 }
 
 function removeOauthQueryParameters() {
-    window.history.replaceState({}, document.title, window.location.pathname);
+    const url = new URL(window.location)
+    url.searchParams.delete('code')
+    url.searchParams.delete('from')
+    window.history.replaceState({}, document.title, url.href);
 }
 
 async function attemptLogin() {
@@ -399,6 +402,12 @@ async function logout() {
 }
 
 async function getLastSeen() {
+    if (window.location.hash) {
+        if (/^#marker:\d+$/.test(window.location.hash)) {
+            const marker = window.location.hash.substring(8)
+            return marker
+        }
+    }
     const url = new URL('/api/v1/markers?timeline[]=home', instance_url)
     const response = await authenticatedGet(url)
     const jsonResponse = await response.json()
@@ -420,3 +429,17 @@ document.getElementById('login_form').addEventListener('submit', function (evt) 
     evt.preventDefault()
 })
 document.getElementById('logout_button').addEventListener('click', logout)
+
+document.getElementById('timeline').addEventListener('scrollend', function (evt) {
+    const centerStatus = document.elementFromPoint(
+        window.visualViewport.width/2,
+        window.visualViewport.height/2
+    ).closest('div.status[data-id]')
+    const url = new URL(location.href)
+    if (centerStatus) {
+        url.hash = '#marker:' + centerStatus.dataset.id
+    } else {
+        url.hash = ''
+    }
+    window.history.replaceState({}, document.title, url.href);
+})
