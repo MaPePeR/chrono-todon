@@ -39,8 +39,13 @@ const lastSeenObserver = new IntersectionObserver(function (entries, observer){
 }, {threshold: 1.0})
 
 async function initialLoad() {
-    const previous = await loadAbove(lastSeen)
-    const newContent = await loadBelow(previous[previous.length - 1].id)
+    const newContent = await loadBelow(lastSeen)
+    const previous = await loadAbove(newContent.length > 0 ? newContent[0].id : lastSeen)
+
+    const closeToLastSeen = newContent.length  > 0 ? newContent[0].id : (previous.length > 0 ? previous[previous.length - 1].id : null)
+    if (closeToLastSeen === null) {
+        throw new Error("Couldn't load any data...")
+    }
 
     const fragment = document.createDocumentFragment()
     for (const timeline of [previous, newContent]) {
@@ -51,9 +56,9 @@ async function initialLoad() {
     }
     bottomSentinel.parentElement.insertBefore(fragment, bottomSentinel)
 
-    document.querySelector('#timeline .status[data-id="' + lastSeen + '"]').scrollIntoView({behavior: 'instant', block: 'center'})
+    document.querySelector('#timeline .status[data-id="' + closeToLastSeen + '"]').scrollIntoView({behavior: 'instant', block: 'center'})
 
-    document.querySelectorAll('#timeline .status[data-id="' + lastSeen + '"] ~ .status').forEach((el) => {
+    document.querySelectorAll('#timeline .status[data-id="' + closeToLastSeen + '"] ~ .status').forEach((el) => {
         lastSeenObserver.observe(el)
     })
 
